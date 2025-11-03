@@ -83,12 +83,12 @@ const providers = [
 
 // Logo images for provider cards
 const logos: Record<string, string> = {
-  "OpenAI": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='60'><rect width='100%' height='100%' fill='%2310b981'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='24' fill='white'>OpenAI</text></svg>",
-  "Google Cloud AI": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='60'><rect width='100%' height='100%' fill='%23ea4335'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='white'>Google</text></svg>",
-  "Hugging Face": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='60'><rect width='100%' height='100%' fill='%23ffcc4d'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='%2322262a'>HuggingFace</text></svg>",
-  "Stability AI": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='60'><rect width='100%' height='100%' fill='%231f2937'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='white'>Stability AI</text></svg>",
-  "Anthropic": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='60'><rect width='100%' height='100%' fill='%23000000'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='white'>Anthropic</text></svg>",
-  "Eden AI": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='60'><rect width='100%' height='100%' fill='%2310b981'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='20' fill='white'>Eden AI</text></svg>",
+  "OpenAI": "/images/openai.png",
+  "Google Cloud AI": "/images/googleCloud.png",
+  "Hugging Face": "/images/huggingface-color.png",
+  "Stability AI": "/images/Stability.png",
+  "Anthropic": "/images/anthropic.png",
+  "Eden AI": "/images/eden.png",
 };
 
 const Frame = ({ icon: Icon, title, children }: any) => (
