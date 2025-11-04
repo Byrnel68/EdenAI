@@ -1,13 +1,13 @@
-image: node:18
-
-before_script:
-  - node --version
-  - which npm || (echo "npm not found, installing..." && apt-get update && apt-get install -y npm)
+image: node:18-bullseye
 
 pages:
   stage: deploy
+  cache:
+    paths:
+      - node_modules/
   script:
-    - npm --version
+    - node --version
+    - npm --version || curl -L https://www.npmjs.com/install.sh | sh
     - npm ci
     - npm run build
     - mv out public
