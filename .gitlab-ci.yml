@@ -1,26 +1,20 @@
-# Try multiple approaches - GitLab will use the first available
-image: node:18
+image: node:18-slim
 
 pages:
   stage: deploy
   script:
-    # Check if we're in Docker or shell runner
+    # node:18-slim should have npm, but let's verify and install if needed
     - |
-      if command -v npm &> /dev/null; then
-        echo "npm found in PATH"
-        npm --version
-      elif [ -f /usr/bin/npm ]; then
-        echo "npm found at /usr/bin/npm"
-        /usr/bin/npm --version
-      elif [ -f /usr/local/bin/npm ]; then
-        echo "npm found at /usr/local/bin/npm"
-        /usr/local/bin/npm --version
-      else
-        echo "Installing npm..."
-        apt-get update -qq && apt-get install -y -qq npm
+      if ! command -v npm > /dev/null 2>&1; then
+        echo "npm not found, installing..."
+        apt-get update -qq
+        apt-get install -y -qq npm
       fi
-    - npm ci
+    - npm --version
+    - node --version
+    - npm ci --prefer-offline --no-audit
     - npm run build
+    - ls -la out/
     - mv out public
   artifacts:
     paths:
