@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: eden-ai-poster
+    env: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+    staticPublishPath: ./out
+

@@ -1,0 +1,11 @@
+# Render Static Site Configuration
+# Use this if you want to deploy as a static site (recommended for static export)
+
+static_sites:
+  - name: eden-ai-poster
+    buildCommand: npm ci && npm run build
+    publishPath: out
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+
