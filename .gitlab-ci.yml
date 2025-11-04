@@ -1,21 +1,12 @@
-image: node:18-slim
+# Simple GitLab Pages deployment - serves pre-built static files
+# Build locally with: npm run build && mv out public
+# Then commit and push: git add public/ && git commit -m "Update built files" && git push
 
 pages:
   stage: deploy
   script:
-    # node:18-slim should have npm, but let's verify and install if needed
-    - |
-      if ! command -v npm > /dev/null 2>&1; then
-        echo "npm not found, installing..."
-        apt-get update -qq
-        apt-get install -y -qq npm
-      fi
-    - npm --version
-    - node --version
-    - npm ci --prefer-offline --no-audit
-    - npm run build
-    - ls -la out/
-    - mv out public
+    - echo "Deploying pre-built static site..."
+    - ls -la public/ || echo "Warning: public folder not found"
   artifacts:
     paths:
       - public
