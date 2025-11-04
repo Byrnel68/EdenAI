@@ -1,8 +1,13 @@
 image: node:18
 
+before_script:
+  - node --version
+  - which npm || (echo "npm not found, installing..." && apt-get update && apt-get install -y npm)
+
 pages:
   stage: deploy
   script:
+    - npm --version
     - npm ci
     - npm run build
     - mv out public
