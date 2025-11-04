@@ -92,18 +92,65 @@ const logos: Record<string, string> = {
 };
 
 const Frame = ({ icon: Icon, title, children }: any) => (
-  <Card className="rounded-2xl shadow-sm border border-emerald-100 bg-white text-slate-900">
-    <CardHeader className="pb-2">
-      <CardTitle className="flex items-center gap-2 text-xl">
-        <Icon className="w-5 h-5 text-emerald-600" /> {title}
-      </CardTitle>
-    </CardHeader>
-    <CardContent>{children}</CardContent>
-  </Card>
+  <motion.div
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-50px" }}
+    variants={{
+      hidden: { opacity: 0, y: 20 },
+      visible: { 
+        opacity: 1, 
+        y: 0,
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+      }
+    }}
+    className="relative group"
+  >
+    {/* Interactive background glow */}
+    <motion.div
+      className="absolute -inset-1 bg-gradient-to-r from-emerald-400/0 via-emerald-400/20 to-emerald-400/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"
+      animate={{
+        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+      }}
+      transition={{
+        duration: 3,
+        repeat: Infinity,
+        ease: "linear"
+      }}
+      style={{
+        backgroundSize: "200% 100%",
+      }}
+    />
+    <Card className="rounded-2xl shadow-sm border border-emerald-100 bg-white text-slate-900 relative overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:border-emerald-300">
+      <CardHeader className="pb-2">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 400 }}
+          className="inline-block"
+        >
+          <CardTitle className="flex items-center gap-2 text-xl">
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+            >
+              <Icon className="w-5 h-5 text-emerald-600" />
+            </motion.div>
+            {title}
+          </CardTitle>
+        </motion.div>
+      </CardHeader>
+      <CardContent>{children}</CardContent>
+    </Card>
+  </motion.div>
 );
 
 const TeamBadge = ({ name }: { name: string }) => (
-  <Badge variant="outline" className="text-sm py-1 px-2 mr-2 mb-2 rounded-xl border-emerald-200 text-emerald-700">{name}</Badge>
+  <Badge 
+    variant="outline" 
+    className="text-sm py-1 px-2 mr-2 mb-2 rounded-xl border-emerald-200 text-emerald-700 transition-all duration-300 hover:bg-emerald-50 hover:border-emerald-400"
+  >
+    {name}
+  </Badge>
 );
 
 export default function Component() {
@@ -123,27 +170,68 @@ export default function Component() {
   return (
     <div className="min-h-screen w-full bg-white text-slate-900">
       {/* Hero */}
-      <header className="sticky top-0 z-20 backdrop-blur bg-white/85 border-b">
+      <motion.header 
+        className="sticky top-0 z-20 backdrop-blur bg-white/85 border-b"
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100, damping: 15 }}
+      >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Cpu className="w-6 h-6 text-emerald-600" />
+          <motion.div 
+            className="flex items-center gap-3"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          >
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            >
+              <Cpu className="w-6 h-6 text-emerald-600" />
+            </motion.div>
             <h1 className="text-2xl font-semibold tracking-tight">Eden AI — AI API Integrator</h1>
-            <Badge className="ml-2 bg-emerald-600 text-white">Interactive Poster</Badge>
-          </div>
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Badge className="ml-2 bg-emerald-600 text-white cursor-pointer">Interactive Poster</Badge>
+            </motion.div>
+          </motion.div>
           {/* Dark mode toggle removed */}
         </div>
-      </header>
+      </motion.header>
 
       {/* Content */}
       <main className="max-w-6xl mx-auto px-4 py-8 grid gap-6">
         {/* NEW: One-Page Write-Up (interactive paragraphs) */}
-        <section className="grid gap-3">
-          <Card className="rounded-2xl border-emerald-100">
-            <CardHeader className="pb-1">
-              <CardTitle className="text-base text-slate-900">One‑Page Write‑Up (Interactive)</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Accordion type="single" collapsible>
+        <motion.section 
+          className="grid gap-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 }
+            }
+          }}
+        >
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            className="relative group"
+          >
+            <motion.div
+              className="absolute -inset-1 bg-gradient-to-r from-emerald-400/0 via-emerald-400/20 to-emerald-400/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"
+            />
+            <Card className="rounded-2xl border-emerald-100 transition-all duration-300 group-hover:shadow-lg group-hover:border-emerald-300">
+              <CardHeader className="pb-1">
+                <CardTitle className="text-base text-slate-900">One‑Page Write‑Up (Interactive)</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Accordion type="single" collapsible>
                 <AccordionItem value="context">
                   <AccordionTrigger className="text-sm">1) Organization / Industry Context</AccordionTrigger>
                   <AccordionContent>
@@ -176,47 +264,278 @@ export default function Component() {
                     </p>
                   </AccordionContent>
                 </AccordionItem>
-              </Accordion>
-            </CardContent>
-          </Card>
-        </section>
+                </Accordion>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.section>
 
         {/* Intro */}
         <section className="grid gap-6">
           <Frame icon={ShieldCheck} title="From the write‑up → Action plan">
-            <div className="grid md:grid-cols-3 gap-4">
-              <div>
-                <div className="text-sm font-medium mb-1">Architecture & Orchestration</div>
-                <ul className="text-sm list-disc pl-5 space-y-1 text-slate-700">
-                  <li>Unify auth & billing across providers; isolate secrets.</li>
-                  <li>Routing policy: <em>best-price</em> vs <em>best-quality</em> vs <em>lowest-latency</em>.</li>
-                  <li>Edge option for PII/latency-sensitive workloads.</li>
-                </ul>
+            <motion.div 
+              className="relative overflow-hidden rounded-xl"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.15,
+                    delayChildren: 0.1
+                  }
+                }
+              }}
+            >
+              {/* Morphing liquid background effect */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                animate={{
+                  background: [
+                    "radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%)",
+                    "radial-gradient(circle at 80% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)",
+                    "radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%)",
+                    "radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%)",
+                  ],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Animated border highlight with morphing effect */}
+              <motion.div
+                className="absolute inset-0 rounded-xl pointer-events-none"
+                style={{
+                  background: "linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent)",
+                  backgroundSize: "200% 100%",
+                }}
+                initial={{ backgroundPosition: "-200% 0" }}
+                whileInView={{ 
+                  backgroundPosition: ["-200% 0", "200% 0"],
+                  transition: { 
+                    duration: 2,
+                    ease: "easeInOut"
+                  }
+                }}
+                viewport={{ once: true }}
+              />
+              
+              {/* Floating particles effect on hover */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 bg-emerald-400 rounded-full opacity-0 group-hover:opacity-60"
+                    initial={{
+                      x: Math.random() * 100 + "%",
+                      y: Math.random() * 100 + "%",
+                      scale: 0,
+                    }}
+                    whileHover={{
+                      scale: [0, 1.5, 0],
+                      y: [0, -30, -60],
+                      transition: {
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.3,
+                        ease: "easeOut"
+                      }
+                    }}
+                  />
+                ))}
               </div>
-              <div>
-                <div className="text-sm font-medium mb-1">KPIs</div>
-                <ul className="text-sm list-disc pl-5 space-y-1 text-slate-700">
-                  <li>Cost per 1k tokens / image / minute.</li>
-                  <li>P95 latency by provider & task.</li>
-                  <li>Quality scores from benchmarking runs.</li>
-                </ul>
+              
+              <div className="relative text-sm leading-relaxed text-slate-700 space-y-4 p-1 group">
+                <motion.div
+                  variants={{
+                    hidden: { 
+                      opacity: 0, 
+                      x: -50,
+                      rotateX: -15,
+                      filter: "blur(10px)",
+                      scale: 0.9
+                    },
+                    visible: { 
+                      opacity: 1, 
+                      x: 0,
+                      rotateX: 0,
+                      filter: "blur(0px)",
+                      scale: 1,
+                      transition: {
+                        duration: 0.8,
+                        ease: [0.34, 1.56, 0.64, 1],
+                        type: "spring",
+                        stiffness: 100
+                      }
+                    }
+                  }}
+                  className="transform-gpu cursor-pointer relative group/item"
+                  whileHover={{ 
+                    scale: 1.03,
+                    x: 15,
+                    transition: { 
+                      duration: 0.4,
+                      type: "spring",
+                      stiffness: 300
+                    }
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  {/* Liquid morphing highlight bar */}
+                  <motion.div
+                    className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-400 via-emerald-500 to-emerald-400 rounded-full opacity-0 group-hover/item:opacity-100"
+                    initial={{ scaleY: 0 }}
+                    whileHover={{ 
+                      scaleY: 1,
+                      transition: { 
+                        duration: 0.5,
+                        ease: [0.34, 1.56, 0.64, 1]
+                      }
+                    }}
+                    style={{ transformOrigin: "top" }}
+                  />
+                  {/* Glowing shadow effect on hover */}
+                  <motion.div
+                    className="absolute -inset-2 bg-emerald-500/20 rounded-xl opacity-0 blur-xl group-hover/item:opacity-100 -z-10"
+                    transition={{ duration: 0.3 }}
+                  />
+                  <p className="relative z-10 block pl-4 group-hover/item:pl-6 transition-all duration-300 group-hover/item:text-emerald-900">
+                    Eden AI's integrator handles the authentication and billing with each AI provider, and its credentials are specific to each provider. It implements dynamic routing policies that prioritize pricing, quality, or latency on a per-organization basis. Edge deployment is available for latency-sensitive workloads or workloads where data must remain on premises for privacy reasons.
+                  </p>
+                </motion.div>
+                <motion.div
+                  variants={{
+                    hidden: { 
+                      opacity: 0, 
+                      x: -50,
+                      rotateX: -15,
+                      filter: "blur(10px)",
+                      scale: 0.9
+                    },
+                    visible: { 
+                      opacity: 1, 
+                      x: 0,
+                      rotateX: 0,
+                      filter: "blur(0px)",
+                      scale: 1,
+                      transition: {
+                        duration: 0.8,
+                        ease: [0.34, 1.56, 0.64, 1],
+                        type: "spring",
+                        stiffness: 100
+                      }
+                    }
+                  }}
+                  className="transform-gpu cursor-pointer relative group/item"
+                  whileHover={{ 
+                    scale: 1.03,
+                    x: 15,
+                    transition: { 
+                      duration: 0.4,
+                      type: "spring",
+                      stiffness: 300
+                    }
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <motion.div
+                    className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-400 via-emerald-500 to-emerald-400 rounded-full opacity-0 group-hover/item:opacity-100"
+                    initial={{ scaleY: 0 }}
+                    whileHover={{ 
+                      scaleY: 1,
+                      transition: { 
+                        duration: 0.5,
+                        ease: [0.34, 1.56, 0.64, 1]
+                      }
+                    }}
+                    style={{ transformOrigin: "top" }}
+                  />
+                  <motion.div
+                    className="absolute -inset-2 bg-emerald-500/20 rounded-xl opacity-0 blur-xl group-hover/item:opacity-100 -z-10"
+                    transition={{ duration: 0.3 }}
+                  />
+                  <p className="relative z-10 block pl-4 group-hover/item:pl-6 transition-all duration-300 group-hover/item:text-emerald-900">
+                    Performance in the three dimensions of cost, response speed, and output quality is calculated in units of cost per 1000 tokens (for text) or image/minute (for vision and speech tasks). Latency is measured at the 95th percentile (P95) to assess responsiveness under load and output quality is measured by benchmarking all API providers continuously to choose the best-performing models.
+                  </p>
+                </motion.div>
+                <motion.div
+                  variants={{
+                    hidden: { 
+                      opacity: 0, 
+                      x: -50,
+                      rotateX: -15,
+                      filter: "blur(10px)",
+                      scale: 0.9
+                    },
+                    visible: { 
+                      opacity: 1, 
+                      x: 0,
+                      rotateX: 0,
+                      filter: "blur(0px)",
+                      scale: 1,
+                      transition: {
+                        duration: 0.8,
+                        ease: [0.34, 1.56, 0.64, 1],
+                        type: "spring",
+                        stiffness: 100
+                      }
+                    }
+                  }}
+                  className="transform-gpu cursor-pointer relative group/item"
+                  whileHover={{ 
+                    scale: 1.03,
+                    x: 15,
+                    transition: { 
+                      duration: 0.4,
+                      type: "spring",
+                      stiffness: 300
+                    }
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <motion.div
+                    className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-400 via-emerald-500 to-emerald-400 rounded-full opacity-0 group-hover/item:opacity-100"
+                    initial={{ scaleY: 0 }}
+                    whileHover={{ 
+                      scaleY: 1,
+                      transition: { 
+                        duration: 0.5,
+                        ease: [0.34, 1.56, 0.64, 1]
+                      }
+                    }}
+                    style={{ transformOrigin: "top" }}
+                  />
+                  <motion.div
+                    className="absolute -inset-2 bg-emerald-500/20 rounded-xl opacity-0 blur-xl group-hover/item:opacity-100 -z-10"
+                    transition={{ duration: 0.3 }}
+                  />
+                  <p className="relative z-10 block pl-4 group-hover/item:pl-6 transition-all duration-300 group-hover/item:text-emerald-900">
+                    Developer capabilities include provider allowlists and deprecation policies, fallback logic, and full audit logging that allows end users to see every API call made, including prompts, responses, and routing logic. Governance policies also enforce regulatory compliance with laws such as GDPR and local data residency laws, while automatically redacting input and output data and allowing end users to set retention periods.
+                  </p>
+                </motion.div>
               </div>
-              <div>
-                <div className="text-sm font-medium mb-1">Governance</div>
-                <ul className="text-sm list-disc pl-5 space-y-1 text-slate-700">
-                  <li>Provider allowlist; fallback & deprecation plan.</li>
-                  <li>Audit logs for prompts, outputs, and routing decisions.</li>
-                  <li>Compliance: data residency, redaction, retention windows.</li>
-                </ul>
-              </div>
-            </div>
+            </motion.div>
           </Frame>
         </section>
 
         {/* Storyboard / Frames */}
         <section className="grid md:grid-cols-2 gap-6">
           <Frame icon={BarChart3} title="Market growth & trends (sourced)">
-            <div className="h-56">
+            <motion.div 
+              className="h-56 relative group/chart"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-transparent rounded-lg opacity-0 group-hover/chart:opacity-100 transition-opacity duration-500"
+              />
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={chartData}
@@ -232,43 +551,99 @@ export default function Component() {
                   <YAxis unit="B" stroke="#475569" />
                   <RTooltip formatter={(value: any) => `$${value}B`} labelFormatter={(label) => `Year ${label}`} />
                   <Legend />
-                  <Line type="monotone" dataKey="Market" dot={{ r: 4 }} activeDot={{ r: 6 }} stroke="#10b981" />
+                  <Line type="monotone" dataKey="Market" dot={{ r: 4 }} activeDot={{ r: 8 }} stroke="#10b981" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
-            </div>
+            </motion.div>
             {/* Explanation below chart */}
-            <div className="mt-3 p-3 rounded-xl bg-emerald-50 text-sm flex items-start gap-2">
-              <Info className="w-4 h-4 mt-0.5 text-emerald-700" />
+            <motion.div 
+              className="mt-3 p-3 rounded-xl bg-emerald-50 text-sm flex items-start gap-2 relative group/info"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              whileHover={{ scale: 1.02, backgroundColor: "rgba(16, 185, 129, 0.15)" }}
+            >
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
+              >
+                <Info className="w-4 h-4 mt-0.5 text-emerald-700" />
+              </motion.div>
               <div>
                 <p className="font-medium text-emerald-800">What this shows</p>
                 <p className="text-slate-700">
                   Each dot is a figure reported by the cited source for that specific year. There is <strong>no interpolation</strong> between years. Hover the chart to see the exact value and which source it came from.
                 </p>
                 {activePoint && (
-                  <p className="mt-2 text-xs text-slate-600">
+                  <motion.p 
+                    className="mt-2 text-xs text-slate-600"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     Hovering: <strong>{activePoint.year}</strong> — <strong>${activePoint.market}B</strong> ({activePoint.src})
-                  </p>
+                  </motion.p>
                 )}
               </div>
-            </div>
-            <div className="mt-3 flex flex-wrap gap-2 text-xs">
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.precedenceresearch.com/ai-api-market" target="_blank" rel="noreferrer">Precedence Research<ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.grandviewresearch.com/industry-analysis/ai-api-market-report" target="_blank" rel="noreferrer">Grand View Research<ExternalLink className="w-3 h-3" /></a>
-            </div>
+            </motion.div>
+            <motion.div 
+              className="mt-3 flex flex-wrap gap-2 text-xs"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              {[
+                { href: "https://www.precedenceresearch.com/ai-api-market", text: "Precedence Research" },
+                { href: "https://www.grandviewresearch.com/industry-analysis/ai-api-market-report", text: "Grand View Research" }
+              ].map((link, i) => (
+                <motion.a
+                  key={i}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700 relative group/link"
+                  whileHover={{ scale: 1.05, x: 5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  {link.text}
+                  <motion.span
+                    whileHover={{ rotate: 45, scale: 1.2 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                  </motion.span>
+                </motion.a>
+              ))}
+            </motion.div>
           </Frame>
 
           <Frame icon={Boxes} title="Plug & Play integration">
             <div className="grid grid-cols-2 gap-3">
-              {providers.map(p => (
-                <motion.div key={p.name} whileHover={{ scale: 1.01 }}>
+              {providers.map((p, index) => (
+                <motion.div 
+                  key={p.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="relative group/card"
+                >
+                  <motion.div
+                    className="absolute -inset-1 bg-gradient-to-r from-emerald-400/0 via-emerald-400/30 to-emerald-400/0 rounded-xl opacity-0 group-hover/card:opacity-100 blur-md transition-opacity duration-500 -z-10"
+                  />
                   <div className="relative" style={{ perspective: 1000 }}>
-                    <div
-                      className="border rounded-xl transition-shadow border-emerald-100"
+                    <motion.div
+                      className="border rounded-xl transition-all duration-300 border-emerald-100 cursor-pointer group-hover/card:border-emerald-400 group-hover/card:shadow-lg"
                       onClick={() => toggleFlip(p.name)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <motion.div
                         animate={{ rotateY: flipped[p.name] ? 180 : 0 }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
                         style={{ transformStyle: "preserve-3d" }}
                         className="relative h-44"
                       >
@@ -282,9 +657,35 @@ export default function Component() {
                             <Badge className="bg-emerald-600 text-white">Provider</Badge>
                           </div>
                           <div className="flex-1 flex items-center justify-center">
-                            <img src={logos[p.name]} alt={`${p.name} logo`} className="max-h-12 w-auto object-contain" loading="lazy" decoding="async" referrerPolicy="no-referrer" draggable={false} onError={(e)=>{(e.currentTarget as HTMLImageElement).src='https://via.placeholder.com/80?text=Logo';}} />
+                            <motion.img 
+                              src={logos[p.name]} 
+                              alt={`${p.name} logo`} 
+                              className="max-h-12 w-auto object-contain" 
+                              loading="lazy" 
+                              decoding="async" 
+                              referrerPolicy="no-referrer" 
+                              draggable={false}
+                              whileHover={{ scale: 1.1, rotate: 5 }}
+                              transition={{ type: "spring", stiffness: 300 }}
+                              onError={(e)=>{(e.currentTarget as HTMLImageElement).src='https://via.placeholder.com/80?text=Logo';}} 
+                            />
                           </div>
-                          <a href={p.site} target="_blank" rel="noreferrer" className="text-xs underline underline-offset-4 text-emerald-700">Visit site</a>
+                          <motion.a 
+                            href={p.site} 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="text-xs underline underline-offset-4 text-emerald-700 inline-flex items-center gap-1"
+                            whileHover={{ scale: 1.1, x: 5 }}
+                            transition={{ type: "spring", stiffness: 400 }}
+                          >
+                            Visit site
+                            <motion.span
+                              whileHover={{ rotate: 45 }}
+                              transition={{ type: "spring", stiffness: 400 }}
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                            </motion.span>
+                          </motion.a>
                         </div>
 
                         {/* Back */}
@@ -301,7 +702,7 @@ export default function Component() {
                           <p className="text-[11px] text-slate-500 mt-2">Click again to flip back</p>
                         </div>
                       </motion.div>
-                    </div>
+                    </motion.div>
                   </div>
                 </motion.div>
               ))}
@@ -311,55 +712,216 @@ export default function Component() {
 
         <section className="grid md:grid-cols-2 gap-6">
           <Frame icon={Rocket} title="New business models in action">
-            <ul className="text-sm list-disc pl-5 space-y-2">
-              <li>Usage-based, tiered plans; vertical bundles (healthcare, education) with compliance presets.</li>
-              <li>AI performance marketplace: benchmark → route → monetize.</li>
-              <li>No vendor lock-in: swap providers as pricing/quality/latency shift.</li>
-              <li className="flex items-center gap-2">Edge routing <Switch checked={edgeMode} onCheckedChange={setEdgeMode} /> <span className="text-xs text-slate-600">{edgeMode ? "On (lower latency, less data egress)" : "Off"}</span></li>
-            </ul>
+            <motion.ul 
+              className="text-sm list-disc pl-5 space-y-2"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 }
+                }
+              }}
+            >
+              {[
+                "Usage-based, tiered plans; vertical bundles (healthcare, education) with compliance presets.",
+                "AI performance marketplace: benchmark → route → monetize.",
+                "No vendor lock-in: swap providers as pricing/quality/latency shift."
+              ].map((text, i) => (
+                <motion.li
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, x: -20 },
+                    visible: { opacity: 1, x: 0 }
+                  }}
+                  className="group/item relative cursor-pointer"
+                  whileHover={{ scale: 1.02, x: 10 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <motion.span
+                    className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-400 rounded-full opacity-0 group-hover/item:opacity-100"
+                    initial={{ scaleY: 0 }}
+                    whileHover={{ scaleY: 1 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ transformOrigin: "top" }}
+                  />
+                  <span className="relative block pl-3 group-hover/item:text-emerald-900 transition-colors">{text}</span>
+                </motion.li>
+              ))}
+              <motion.li 
+                className="flex items-center gap-2 mt-4"
+                variants={{
+                  hidden: { opacity: 0, x: -20 },
+                  visible: { opacity: 1, x: 0 }
+                }}
+                whileHover={{ scale: 1.05 }}
+              >
+                Edge routing 
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Switch checked={edgeMode} onCheckedChange={setEdgeMode} />
+                </motion.div>
+                <motion.span 
+                  className="text-xs text-slate-600"
+                  animate={{ color: edgeMode ? "#065f46" : "#64748b" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {edgeMode ? "On (lower latency, less data egress)" : "Off"}
+                </motion.span>
+              </motion.li>
+            </motion.ul>
           </Frame>
 
           <Frame icon={Users} title="Project team & goal">
-            <p className="text-sm">“Enable rapid, cost-effective digital innovation by integrating diverse AI APIs into a single, smart platform.”</p>
-            <div className="mt-3">
-              {"James McNamee, Laurie Byrne, Fiachra Tobin, Micheal Buckley, Ash Tirou, Natalia Sulatska".split(", ").map(n => <TeamBadge key={n} name={n} />)}
-            </div>
-            <div className="mt-4 text-xs text-slate-600">
+            <motion.p 
+              className="text-sm relative group/quote"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02, x: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.span
+                className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-400 rounded-full opacity-0 group-hover/quote:opacity-100"
+                initial={{ scaleY: 0 }}
+                whileHover={{ scaleY: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <span className="relative block pl-4 italic">"Enable rapid, cost-effective digital innovation by integrating diverse AI APIs into a single, smart platform."</span>
+            </motion.p>
+            <motion.div 
+              className="mt-3"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.05 }
+                }
+              }}
+            >
+              {"James McNamee, Laurie Byrne, Fiachra Tobin, Micheal Buckley, Ash Tirou, Natalia Sulatska".split(", ").map((n, i) => (
+                <motion.div
+                  key={n}
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.8 },
+                    visible: { opacity: 1, scale: 1 }
+                  }}
+                  whileHover={{ scale: 1.1, rotate: 2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                  className="inline-block"
+                >
+                  <TeamBadge name={n} />
+                </motion.div>
+              ))}
+            </motion.div>
+            <motion.div 
+              className="mt-4 text-xs text-slate-600"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
               Built as an interactive one-pager poster for demo/print.
-            </div>
+            </motion.div>
           </Frame>
         </section>
 
         {/* Sources */}
-        <section className="grid gap-2">
-          <Card className="rounded-2xl border-emerald-100">
-            <CardHeader className="pb-1">
-              <CardTitle className="text-base text-slate-900">Source Links (no extrapolation)</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm flex flex-wrap gap-3">
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.precedenceresearch.com/ai-api-market" target="_blank" rel="noreferrer">Precedence Research — AI API Market 2024–2034 <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.grandviewresearch.com/industry-analysis/ai-api-market-report" target="_blank" rel="noreferrer">Grand View Research — AI API Market to 2030 <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.edenai.co/post/open-source-ai-apis-aggregator-by-eden-ai" target="_blank" rel="noreferrer">Eden AI — Open Source Aggregator <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://api4.ai/blog/ai-apis-what-they-are-and-why-they-matter-to-business" target="_blank" rel="noreferrer">API4.AI — What are AI APIs (2025) <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.sngular.com/insights/358/turn-your-apis-into-a-growth-engine-in-2025" target="_blank" rel="noreferrer">Sngular — APIs as a growth engine (2025) <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.toolmage.com/en/tool/eden-ai/" target="_blank" rel="noreferrer">Toolmage — Eden AI overview <ExternalLink className="w-3 h-3" /></a>
-
-              {/* Provider-specific references */}
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://platform.openai.com/docs/models" target="_blank" rel="noreferrer">OpenAI — API & Models <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://cloud.google.com/vertex-ai" target="_blank" rel="noreferrer">Google — Vertex AI <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://huggingface.co/docs/inference-providers/en/index" target="_blank" rel="noreferrer">Hugging Face — Inference Providers <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://platform.stability.ai/docs/api-reference" target="_blank" rel="noreferrer">Stability AI — REST API <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.anthropic.com/" target="_blank" rel="noreferrer">Anthropic — Claude <ExternalLink className="w-3 h-3" /></a>
-              <a className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700" href="https://www.edenai.co/" target="_blank" rel="noreferrer">Eden AI — Unified API <ExternalLink className="w-3 h-3" /></a>
-            </CardContent>
-          </Card>
-        </section>
+        <motion.section 
+          className="grid gap-2"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.03 }
+            }
+          }}
+        >
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            className="relative group"
+          >
+            <motion.div
+              className="absolute -inset-1 bg-gradient-to-r from-emerald-400/0 via-emerald-400/20 to-emerald-400/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"
+            />
+            <Card className="rounded-2xl border-emerald-100 transition-all duration-300 group-hover:shadow-lg group-hover:border-emerald-300">
+              <CardHeader className="pb-1">
+                <CardTitle className="text-base text-slate-900">Source Links (no extrapolation)</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm flex flex-wrap gap-3">
+                {[
+                  { href: "https://www.precedenceresearch.com/ai-api-market", text: "Precedence Research — AI API Market 2024–2034" },
+                  { href: "https://www.grandviewresearch.com/industry-analysis/ai-api-market-report", text: "Grand View Research — AI API Market to 2030" },
+                  { href: "https://www.edenai.co/post/open-source-ai-apis-aggregator-by-eden-ai", text: "Eden AI — Open Source Aggregator" },
+                  { href: "https://api4.ai/blog/ai-apis-what-they-are-and-why-they-matter-to-business", text: "API4.AI — What are AI APIs (2025)" },
+                  { href: "https://www.sngular.com/insights/358/turn-your-apis-into-a-growth-engine-in-2025", text: "Sngular — APIs as a growth engine (2025)" },
+                  { href: "https://www.toolmage.com/en/tool/eden-ai/", text: "Toolmage — Eden AI overview" },
+                  { href: "https://platform.openai.com/docs/models", text: "OpenAI — API & Models" },
+                  { href: "https://cloud.google.com/vertex-ai", text: "Google — Vertex AI" },
+                  { href: "https://huggingface.co/docs/inference-providers/en/index", text: "Hugging Face — Inference Providers" },
+                  { href: "https://platform.stability.ai/docs/api-reference", text: "Stability AI — REST API" },
+                  { href: "https://www.anthropic.com/", text: "Anthropic — Claude" },
+                  { href: "https://www.edenai.co/", text: "Eden AI — Unified API" }
+                ].map((link, i) => (
+                  <motion.a
+                    key={i}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 underline underline-offset-4 text-emerald-700 relative group/link"
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                    whileHover={{ scale: 1.05, x: 5, color: "#065f46" }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    {link.text}
+                    <motion.span
+                      whileHover={{ rotate: 45, scale: 1.2 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                    </motion.span>
+                  </motion.a>
+                ))}
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.section>
       </main>
 
       {/* Footer */}
-      <footer className="py-8 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} Eden AI — Interactive Poster. Built for demonstration purposes.
-      </footer>
+      <motion.footer 
+        className="py-8 text-center text-xs text-slate-500"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+      >
+        <motion.p
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 400 }}
+          className="inline-block"
+        >
+          © {new Date().getFullYear()} Eden AI — Interactive Poster. Built for demonstration purposes.
+        </motion.p>
+      </motion.footer>
     </div>
   );
 }

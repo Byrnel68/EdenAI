@@ -17,10 +17,10 @@ Since this project uses Next.js static export, deploying as a **Static Site** is
    - Or go to: https://dashboard.render.com/new/static
 
 3. **Connect Repository**
-   - Choose **GitLab** as your Git provider
-   - Authorize Render to access your GitLab account if needed
-   - Select your repository: `byrnel68/edenai`
-   - Or use the Git repository URL: `https://gitlab.scss.tcd.ie/byrnel68/edenai.git`
+   - Choose **GitHub** as your Git provider
+   - Authorize Render to access your GitHub account if needed
+   - Select your repository: `Byrnel68/EdenAI`
+   - Or use the Git repository URL: `https://github.com/Byrnel68/EdenAI.git`
 
 4. **Configure Build Settings**
    - **Name**: `eden-ai-poster` (or any name you prefer)
@@ -38,7 +38,7 @@ Since this project uses Next.js static export, deploying as a **Static Site** is
 If you need a web service instead of static site:
 
 1. Go to **"New +"** → **"Web Service"**
-2. Connect your GitLab repository
+2. Connect your GitHub repository
 3. Use these settings:
    - **Build Command**: `npm ci && npm run build`
    - **Start Command**: `npm start`
