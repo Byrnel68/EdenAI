@@ -29,7 +29,8 @@ pages:
     - build
   script:
     - mkdir -p public
-    - cp -r out/* public/
+    - cp -r out/* public/ 2>/dev/null || true
+    - rm -rf public/_next public/.next 2>/dev/null || true
   artifacts:
     paths:
       - public/

@@ -12,6 +12,11 @@ node_modules/
 /.next/
 /out/
 
+# Public build artifacts (should not be committed)
+/public/_next/
+/public/404.html
+/public/index.html
+
 # Misc
 .DS_Store
 *.pem
