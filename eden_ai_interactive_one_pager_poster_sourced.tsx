@@ -806,7 +806,7 @@ export default function Component() {
                 }
               }}
             >
-              {"James McNamee, Laurie Byrne, Fiachra Tobin, Micheal Buckley, Ash Tirou, Natalia Sulatska".split(", ").map((n, i) => (
+              {"James McNamee, Laurie Byrne, Fiachra Tobin, Micheal Buckley, Ashwine Tirouvaroul, Natalia Sulatska".split(", ").map((n, i) => (
                 <motion.div
                   key={n}
                   variants={{

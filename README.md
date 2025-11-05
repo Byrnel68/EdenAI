@@ -145,7 +145,7 @@ edenai/
 - Laurie Byrne
 - Fiachra Tobin
 - Micheal Buckley
-- Ash Tirou
+- Ashwine Tirouvaroul
 - Natalia Sulatska
 
 ## Sources
