@@ -122,13 +122,13 @@ const Frame = ({ icon: Icon, title, children }: any) => (
       }}
     />
     <Card className="rounded-2xl shadow-sm border border-emerald-100 bg-white text-slate-900 relative overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:border-emerald-300">
-      <CardHeader className="pb-2">
+    <CardHeader className="pb-2">
         <motion.div
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400 }}
           className="inline-block"
         >
-          <CardTitle className="flex items-center gap-2 text-xl">
+      <CardTitle className="flex items-center gap-2 text-xl">
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
@@ -136,11 +136,11 @@ const Frame = ({ icon: Icon, title, children }: any) => (
               <Icon className="w-5 h-5 text-emerald-600" />
             </motion.div>
             {title}
-          </CardTitle>
+      </CardTitle>
         </motion.div>
-      </CardHeader>
-      <CardContent>{children}</CardContent>
-    </Card>
+    </CardHeader>
+    <CardContent>{children}</CardContent>
+  </Card>
   </motion.div>
 );
 
@@ -186,7 +186,7 @@ export default function Component() {
               animate={{ rotate: [0, 360] }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             >
-              <Cpu className="w-6 h-6 text-emerald-600" />
+            <Cpu className="w-6 h-6 text-emerald-600" />
             </motion.div>
             <h1 className="text-2xl font-semibold tracking-tight">Eden AI — AI API Integrator</h1>
             <motion.div
@@ -227,11 +227,11 @@ export default function Component() {
               className="absolute -inset-1 bg-gradient-to-r from-emerald-400/0 via-emerald-400/20 to-emerald-400/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"
             />
             <Card className="rounded-2xl border-emerald-100 transition-all duration-300 group-hover:shadow-lg group-hover:border-emerald-300">
-              <CardHeader className="pb-1">
-                <CardTitle className="text-base text-slate-900">One‑Page Write‑Up (Interactive)</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Accordion type="single" collapsible>
+            <CardHeader className="pb-1">
+              <CardTitle className="text-base text-slate-900">One‑Page Write‑Up (Interactive)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Accordion type="single" collapsible>
                 <AccordionItem value="context">
                   <AccordionTrigger className="text-sm">1) Organization / Industry Context</AccordionTrigger>
                   <AccordionContent>
@@ -264,9 +264,9 @@ export default function Component() {
                     </p>
                   </AccordionContent>
                 </AccordionItem>
-                </Accordion>
-              </CardContent>
-            </Card>
+              </Accordion>
+            </CardContent>
+          </Card>
           </motion.div>
         </motion.section>
 
@@ -568,7 +568,7 @@ export default function Component() {
                 animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
               >
-                <Info className="w-4 h-4 mt-0.5 text-emerald-700" />
+              <Info className="w-4 h-4 mt-0.5 text-emerald-700" />
               </motion.div>
               <div>
                 <p className="font-medium text-emerald-800">What this shows</p>
@@ -859,10 +859,10 @@ export default function Component() {
               className="absolute -inset-1 bg-gradient-to-r from-emerald-400/0 via-emerald-400/20 to-emerald-400/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"
             />
             <Card className="rounded-2xl border-emerald-100 transition-all duration-300 group-hover:shadow-lg group-hover:border-emerald-300">
-              <CardHeader className="pb-1">
-                <CardTitle className="text-base text-slate-900">Source Links (no extrapolation)</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm flex flex-wrap gap-3">
+            <CardHeader className="pb-1">
+                <CardTitle className="text-base text-slate-900">Source Links</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm flex flex-wrap gap-3">
                 {[
                   { href: "https://www.precedenceresearch.com/ai-api-market", text: "Precedence Research — AI API Market 2024–2034" },
                   { href: "https://www.grandviewresearch.com/industry-analysis/ai-api-market-report", text: "Grand View Research — AI API Market to 2030" },
@@ -900,8 +900,8 @@ export default function Component() {
                     </motion.span>
                   </motion.a>
                 ))}
-              </CardContent>
-            </Card>
+            </CardContent>
+          </Card>
           </motion.div>
         </motion.section>
       </main>
@@ -919,7 +919,7 @@ export default function Component() {
           transition={{ type: "spring", stiffness: 400 }}
           className="inline-block"
         >
-          © {new Date().getFullYear()} Eden AI — Interactive Poster. Built for demonstration purposes.
+        © {new Date().getFullYear()} Eden AI — Interactive Poster. Built for demonstration purposes.
         </motion.p>
       </motion.footer>
     </div>
