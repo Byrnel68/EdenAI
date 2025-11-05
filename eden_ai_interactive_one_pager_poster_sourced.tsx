@@ -195,6 +195,12 @@ export default function Component() {
             >
               <Badge className="ml-2 bg-emerald-600 text-white cursor-pointer">Interactive Poster</Badge>
             </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Badge variant="outline" className="ml-2 border-emerald-600 text-emerald-600">Group 25</Badge>
+            </motion.div>
           </motion.div>
           {/* Dark mode toggle removed */}
         </div>
